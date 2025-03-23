@@ -1,7 +1,7 @@
 comandosTerminalPg.md
 .env
 
-__pycache__/
+__pycache__
 models/__pycache__/
 pydantic_schemas/__pycache__/
 routes/__pycache__/
