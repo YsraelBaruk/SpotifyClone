@@ -1,13 +1,8 @@
-from fastapi import FastAPI, Request
-from pydantic import BaseModel
+from models.base import Base
+from fastapi import FastAPI
+from database import engine
+from routes import auth
 
 app = FastAPI()
-
-class Test(BaseModel):
-    name: str
-    age: int
-
-@app.post('/')
-def test(t: Test):
-    print(t)
-    return 'hello'
+app.include_router(auth.router, prefix='/auth')
+Base.metadata.create_all(engine)
