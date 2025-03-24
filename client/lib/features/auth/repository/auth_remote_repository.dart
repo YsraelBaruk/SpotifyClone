@@ -3,7 +3,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
 
 class AuthRemoteRepository {
-  Future<Either<String, Map<String, dynamic>>> signup({
+  Future<Either<Failure, Map<String, dynamic>>> signup({
     required String name,
     required String email,
     required String password,
@@ -18,6 +18,7 @@ class AuthRemoteRepository {
         return Left(response.body);
       }
       final user = (response.body) as Map<String, dynamic>;
+      user['email'];
       return Right(user);
     } catch (e) {
       print(e);
