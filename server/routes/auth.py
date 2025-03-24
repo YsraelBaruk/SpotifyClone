@@ -30,4 +30,5 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
     is_match = bcrypt.checkpw(user.password.encode(), user_db.password)
     if not is_match:
         raise HTTPException(400, 'senha incorreta!')
+    print(user_db)
     return user_db
