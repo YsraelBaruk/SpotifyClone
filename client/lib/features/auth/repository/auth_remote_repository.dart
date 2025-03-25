@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'package:client/features/auth/model/user_model.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
 
 class AuthRemoteRepository {
-  Future<Either<Failure, Map<String, dynamic>>> signup({
+  Future<Either<Failure, UserModel>> signup({
     required String name,
     required String email,
     required String password,
@@ -14,11 +15,12 @@ class AuthRemoteRepository {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'name': name, 'email': email, 'password': password}),
       );
+      final user = jsonDecode(response.body) as Map<String, dynamic>;
+      
       if (response.statusCode != 201) {
-        return Left(response.body);
+        return Left(Failure(response.body));
       }
-      final user = (response.body) as Map<String, dynamic>;
-      user['email'];
+      
       return Right(user);
     } catch (e) {
       print(e);
